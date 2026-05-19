@@ -1,0 +1,156 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": {
+    "text": "Domestic Visitors by Quarter (2021–2025)",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "color": "#1a1a2e",
+    "anchor": "start"
+  },
+
+  "width": 420,
+  "height": 260,
+
+  "data": {
+    "url": "../data/domestic_visitors_quarter.csv"
+  },
+
+  "transform": [
+    {
+      "calculate": "'Q' + datum.quarter",
+      "as": "Quarter"
+    },
+    {
+      "calculate": "toString(datum.year)",
+      "as": "Year"
+    }
+  ],
+
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+
+      "encoding": {
+        "x": {
+          "field": "Quarter",
+          "type": "ordinal",
+          "title": "Quarter",
+          "sort": ["Q1", "Q2", "Q3", "Q4"],
+          "axis": {
+            "labelAngle": 0
+          }
+        },
+
+        "y": {
+          "field": "Year",
+          "type": "ordinal",
+          "title": "Year",
+          "sort": "ascending"
+        },
+
+        "color": {
+          "field": "domestic_visitors",
+          "type": "quantitative",
+          "title": "Domestic Visitors (Million)",
+          "scale": {
+            "scheme": "blues",
+            "domain": [0, 75]
+          },
+          "legend": {
+            "title": "Visitors (Million)"
+          }
+        },
+
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "Quarter",
+            "type": "ordinal",
+            "title": "Quarter"
+          },
+          {
+            "field": "domestic_visitors",
+            "type": "quantitative",
+            "title": "Number of Domestic Visitors (Million)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": "bold"
+      },
+
+      "encoding": {
+        "x": {
+          "field": "Quarter",
+          "type": "ordinal",
+          "sort": ["Q1", "Q2", "Q3", "Q4"]
+        },
+
+        "y": {
+          "field": "Year",
+          "type": "ordinal",
+          "sort": "ascending"
+        },
+
+        "text": {
+          "field": "domestic_visitors",
+          "type": "quantitative",
+          "format": ".0f"
+        },
+
+        "color": {
+          "condition": {
+            "test": "datum.domestic_visitors > 40",
+            "value": "white"
+          },
+          "value": "#1a1a2e"
+        }
+      }
+    }
+  ],
+
+    "config": {
+        "font": "Open Sans",
+        "title": {
+            "font": "Open Sans",
+            "fontSize": 13,
+            "fontWeight": "bold",
+            "anchor": "start",
+            "color": "#1a1a2e"
+        },
+
+        "axis": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        },
+
+        "legend": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 10,
+            "titleFontSize": 11
+        },
+
+        "view": {
+            "stroke": null
+        }
+    },
+    "background": "#ffffff"
+}

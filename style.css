@@ -1,0 +1,32 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #3F3F46;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.4em;
+    font-weight: 700;
+    margin-bottom: 0.2em;
+    letter-spacing: -1px;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2em;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 0.3em;
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.05em;
+    line-height: 1.7;
+    color: #555;
+}
+
+.covid-text {
+    color: #C76D3A;
+    font-weight: 700;
+}

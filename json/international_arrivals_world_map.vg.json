@@ -1,0 +1,154 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": {
+    "text": "International Visitor Origins",
+    "subtitle": "Top countries to Malaysia"
+  },
+
+  "width": 420,
+  "height": 260,
+
+  "params": [
+    {
+      "name": "YearSelector",
+      "value": 2024,
+      "bind": {
+        "input": "select",
+        "options": [2020, 2021, 2022, 2023, 2024],
+        "name": "Select Year: "
+      }
+    }
+  ],
+
+  "projection": {
+    "type": "equalEarth",
+    "center": [100, 15],
+    "scale": 320
+  },
+
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_admin_0_countries"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eef1f5",
+        "stroke": "white",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "../data/international_arrivals_country.csv"
+      },
+    "transform": [
+    {
+        "filter": "datum.year == YearSelector"
+    },
+    {
+        "window": [
+        {
+            "op": "rank",
+            "as": "rank"
+        }
+        ],
+        "sort": [
+        {
+            "field": "arrivals",
+            "order": "descending"
+        }
+        ]
+    },
+    {
+        "filter": "datum.rank <= 10"
+    }
+    ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.65,
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+        "field": "arrivals",
+        "type": "quantitative",
+        "title": "Arrivals",
+        "scale": {
+            "range": [20, 850]
+        },
+        "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "titleOrient": "left",
+            "format": "~s"
+        }
+        },
+        "color": {
+          "value": "#8e6bbf"
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "arrivals",
+            "type": "quantitative",
+            "title": "Arrivals",
+            "format": ","
+          }
+        ]
+      }
+    }
+  ],
+
+    "config": {
+        "font": "Open Sans",
+        "title": {
+            "font": "Open Sans",
+            "fontSize": 13,
+            "fontWeight": "bold",
+            "anchor": "start",
+            "color": "#1a1a2e"
+        },
+
+        "axis": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        },
+
+        "legend": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 10,
+            "titleFontSize": 11
+        },
+
+        "view": {
+            "stroke": null
+        }
+    }
+}

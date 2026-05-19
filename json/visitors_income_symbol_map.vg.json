@@ -1,0 +1,166 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": {
+    "text": "Domestic Visitors and Household Income by State",
+    "fontSize": 14,
+    "fontWeight": "bold",
+    "color": "#1a1a2e",
+    "anchor": "start"
+  },
+
+  "width": 580,
+  "height": 320,
+  "padding": 5,
+
+  "params": [
+    {
+      "name": "YearSelector",
+      "value": 2022,
+      "bind": {
+        "input": "select",
+        "options": [2019, 2020, 2022],
+        "name": "Select Year: "
+      }
+    }
+  ],
+
+  "projection": {
+    "type": "mercator",
+    "center": [109, 4],
+    "scale": 1600
+  },
+
+  "layer": [
+    {
+      "data": {
+          "url": "../data/malaysia-states.topojson",
+          "format": {
+            "type": "topojson",
+            "feature": "states"
+          }
+      },
+
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eef3f8",
+        "stroke": "white",
+        "strokeWidth": 1
+      }
+    },
+
+    {
+      "data": {
+        "url": "../data/visitors_income.csv"
+      },
+
+      "transform": [
+        {
+          "filter": "datum.year == YearSelector"
+        }
+      ],
+
+      "mark": {
+        "type": "circle",
+        "opacity": 0.8,
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+
+        "size": {
+            "field": "visitors",
+            "type": "quantitative",
+            "title": "Domestic Visitors (Million)",
+            "scale": {
+                "range": [50, 1000]
+            },
+            "legend": {
+                "orient": "bottom",
+                "direction": "horizontal"
+            }
+        },
+
+        "color": {
+            "field": "income",
+            "type": "quantitative",
+            "title": "Monthly Income per Household (RM)",
+            "scale": {
+                "scheme": "oranges"
+            },
+            "legend": {
+                "orient": "bottom",
+                "direction": "horizontal",
+                "gradientLength": 150
+            }
+        },
+
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "visitors",
+            "type": "quantitative",
+            "title": "Domestic Visitors (Million)",
+            "format": ".2f"
+          },
+          {
+            "field": "income",
+            "type": "quantitative",
+            "title": "Monthly Income per Household (RM)",
+            "format": ",.0f"
+          }
+        ]
+      }
+    }
+  ],
+
+    "config": {
+        "font": "Open Sans",
+        "title": {
+            "font": "Open Sans",
+            "fontSize": 13,
+            "fontWeight": "bold",
+            "anchor": "start",
+            "color": "#1a1a2e"
+        },
+
+        "axis": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        },
+
+        "legend": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 10,
+            "titleFontSize": 11
+        },
+
+        "view": {
+            "stroke": null
+        }
+    },
+
+   "background": "#ffffff"
+}

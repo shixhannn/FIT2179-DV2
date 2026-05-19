@@ -1,0 +1,128 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": "Domestic Visitors by State in Malaysia",
+
+  "width": 580,
+  "height": 320,
+  "padding": 5,
+
+  "params": [
+    {
+      "name": "Year_selection",
+      "value": 2024,
+      "bind": {
+        "input": "select",
+        "options": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+        "name": "Select Year: "
+      }
+    }
+  ],
+
+  "projection": {
+    "type": "equirectangular",
+    "center": [110, 3.8],
+    "scale": 1650
+  },
+
+  "data": {
+    "url": "../data/domestic_visitors_by_state.csv"
+  },
+
+  "transform": [
+    {
+      "filter": "toNumber(datum.year) == Year_selection"
+    },
+    {
+      "lookup": "state",
+      "from": {
+        "data": {
+          "url": "../data/malaysia-states.topojson",
+          "format": {
+            "type": "topojson",
+            "feature": "states"
+          }
+        },
+        "key": "properties.Name"
+      },
+      "as": "geo"
+    },
+    {
+      "filter": "isValid(datum.geo)"
+    }
+  ],
+
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 1
+  },
+
+  "encoding": {
+    "shape": {
+      "field": "geo",
+      "type": "geojson"
+    },
+    "color": {
+      "field": "visitors",
+      "type": "quantitative",
+      "title": "Visitors",
+      "scale": {
+        "scheme": "purpleblue",
+        "domain": [0, 35000]
+    },
+      "legend": {
+        "orient": "right",
+        "offset": 10,
+        "gradientLength": 200,
+        "format": ".2s"
+        }
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "visitors",
+        "type": "quantitative",
+        "title": "Visitors",
+        "format": ","
+      }
+    ]
+    },
+    "config": {
+        "font": "Open Sans",
+        "title": {
+            "font": "Open Sans",
+            "fontSize": 13,
+            "fontWeight": "bold",
+            "anchor": "start",
+            "color": "#1a1a2e"
+        },
+
+        "axis": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        },
+
+        "legend": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 10,
+            "titleFontSize": 11
+        },
+
+        "view": {
+            "stroke": null
+        }
+    }
+}

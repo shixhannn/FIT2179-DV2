@@ -1,0 +1,136 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": {
+    "text": "International Arrivals by State",
+    "subtitle": "Circle size represents arrivals"
+  },
+
+  "width": 680,
+  "height": 300,
+
+  "params": [
+    {
+      "name": "YearSelector",
+      "value": 2024,
+      "bind": {
+        "input": "select",
+        "options": [2020, 2021, 2022, 2023, 2024],
+        "name": "Select Year: "
+      }
+    }
+  ],
+
+  "projection": {
+    "type": "mercator",
+    "center": [108, 4],
+    "scale": 1250
+  },
+
+  "layer": [
+    {
+      "data": {
+        "url": "../data/malaysia-states.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eef1f5",
+        "stroke": "white",
+        "strokeWidth": 1
+      }
+    },
+
+    {
+      "data": {
+        "url": "../data/international_arrivals_by_state.csv"
+      },
+
+      "transform": [
+        {
+          "filter": "datum.year == YearSelector"
+        }
+      ],
+
+      "mark": {
+        "type": "circle",
+        "opacity": 0.6,
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "arrivals",
+          "type": "quantitative",
+          "title": "Arrivals",
+          "scale": {
+            "range": [30, 650]
+          }
+        },
+        "color": {
+          "value": "#8e6bbf"
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "arrivals",
+            "type": "quantitative",
+            "title": "Arrivals",
+            "format": ","
+          }
+        ]
+      }
+    }
+  ],
+
+    "config": {
+        "font": "Open Sans",
+        "title": {
+            "font": "Open Sans",
+            "fontSize": 13,
+            "fontWeight": "bold",
+            "anchor": "start",
+            "color": "#1a1a2e"
+        },
+
+        "axis": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        },
+
+        "legend": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 10,
+            "titleFontSize": 11
+        },
+
+        "view": {
+            "stroke": null
+        }
+    }
+}

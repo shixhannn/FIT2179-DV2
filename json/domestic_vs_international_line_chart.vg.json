@@ -1,0 +1,99 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": {
+    "text": "Domestic and International Tourism Trend (2020–2024)",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "color": "#1a1a2e",
+    "anchor": "start"
+  },
+
+  "width": 390,
+  "height": 240,
+
+  "data": {
+    "url": "../data/domestic_vs_international_annual.csv"
+  },
+
+  "transform": [
+    {
+      "fold": ["domestic", "international"],
+      "as": ["type", "visitors"]
+    }
+  ],
+
+  "mark": {
+    "type": "line",
+    "point": true,
+    "strokeWidth": 3
+  },
+
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": { "labelAngle": 0 }
+    },
+
+    "y": {
+      "field": "visitors",
+      "type": "quantitative",
+      "title": "Number of Visitors (millions)"
+    },
+
+    "color": {
+      "field": "type",
+      "type": "nominal",
+      "title": null,
+      "scale": {
+        "domain": ["domestic", "international"],
+        "range": ["#2A9D8F", "#7B2CBF"]
+      },
+      "legend": {
+        "labelExpr": "datum.label === 'domestic' ? 'Domestic Visitors' : 'International Arrivals'"
+      }
+    },
+
+    "tooltip": [
+      { "field": "year", "type": "ordinal", "title": "Year" },
+      { "field": "type", "type": "nominal", "title": "Type" },
+      {
+        "field": "visitors",
+        "type": "quantitative",
+        "title": "Number of Visitors (millions)",
+        "format": ".2f"
+      }
+    ]
+  },
+
+    "config": {
+        "font": "Open Sans",
+        "title": {
+            "font": "Open Sans",
+            "fontSize": 13,
+            "fontWeight": "bold",
+            "anchor": "start",
+            "color": "#1a1a2e"
+        },
+
+        "axis": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        },
+
+        "legend": {
+            "labelFont": "Open Sans",
+            "titleFont": "Open Sans",
+            "labelFontSize": 10,
+            "titleFontSize": 11
+        },
+
+        "view": {
+            "stroke": null
+        }
+    }
+}

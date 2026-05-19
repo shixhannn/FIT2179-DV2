@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "width": 700,
+  "height": 350,
+
+  "title": "Malaysia Domestic Tourism Recovery (2017–2025)",
+
+  "data": {
+    "url": "../data/domestic_visitors_annual.csv"
+  },
+
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": true,
+      "size": 60
+    },
+    "color": "#2c7bb6", 
+    "strokeWidth": 3
+  },
+
+  "encoding": {
+
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "Year"
+    },
+
+    "y": {
+      "field": "domestic_visitors",
+      "type": "quantitative",
+      "title": "Domestic Visitors (Million)"
+    },
+
+    "tooltip": [
+      {
+        "field": "year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+
+      {
+        "field": "domestic_visitors",
+        "type": "quantitative",
+        "title": "Number of Domestic Visitors (Million)",
+        "format": ".1f"
+      }
+    ]
+  }
+}
