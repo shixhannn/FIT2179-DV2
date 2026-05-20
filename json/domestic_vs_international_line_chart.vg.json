@@ -13,7 +13,7 @@
   "height": 240,
 
   "data": {
-    "url": "../data/domestic_vs_international_annual.csv"
+    "url": "data/domestic_vs_international_annual.csv"
   },
 
   "transform": [

@@ -26,7 +26,7 @@
   },
 
   "data": {
-    "url": "../data/domestic_visitors_by_state.csv"
+    "url": "data/domestic_visitors_by_state.csv"
   },
 
   "transform": [

@@ -45,7 +45,7 @@
     },
     {
       "data": {
-        "url": "../data/international_arrivals_country.csv"
+        "url": "data/international_arrivals_country.csv"
       },
     "transform": [
     {

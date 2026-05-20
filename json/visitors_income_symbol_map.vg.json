@@ -34,7 +34,7 @@
   "layer": [
     {
       "data": {
-          "url": "../data/malaysia-states.topojson",
+          "url": "data/malaysia-states.topojson",
           "format": {
             "type": "topojson",
             "feature": "states"
@@ -51,7 +51,7 @@
 
     {
       "data": {
-        "url": "../data/visitors_income.csv"
+        "url": "data/visitors_income.csv"
       },
 
       "transform": [

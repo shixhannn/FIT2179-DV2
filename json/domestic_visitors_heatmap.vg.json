@@ -13,7 +13,7 @@
   "height": 260,
 
   "data": {
-    "url": "../data/domestic_visitors_quarter.csv"
+    "url": "data/domestic_visitors_quarter.csv"
   },
 
   "transform": [

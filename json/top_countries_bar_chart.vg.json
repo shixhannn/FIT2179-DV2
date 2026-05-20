@@ -10,7 +10,7 @@
   "height": 260,
 
   "data": {
-    "url": "../data/top_countries.csv"
+    "url": "data/top_countries.csv"
   },
 
   "params": [
