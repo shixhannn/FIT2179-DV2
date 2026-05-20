@@ -37,7 +37,7 @@
       "lookup": "state",
       "from": {
         "data": {
-          "url": "../data/malaysia-states.topojson",
+          "url": "data/malaysia-states.topojson",
           "format": {
             "type": "topojson",
             "feature": "states"
