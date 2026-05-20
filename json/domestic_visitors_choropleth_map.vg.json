@@ -71,12 +71,12 @@
         "scheme": "purpleblue",
         "domain": [0, 35000]
     },
-      "legend": {
-        "orient": "right",
-        "offset": 10,
-        "gradientLength": 200,
-        "format": ".2s"
-        }
+    "legend": {
+      "orient": "bottom",
+      "direction": "horizontal",
+      "gradientLength": 180,
+      "format": ".2s"
+    }
     },
     "tooltip": [
       {

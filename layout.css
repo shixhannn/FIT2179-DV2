@@ -7,7 +7,7 @@ body {
 #conclusion {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 70px 24px 50px 24px;
+    padding-top: 30px;
     text-align: center;
 }
 
@@ -15,6 +15,8 @@ body {
 #conclusion p {
     max-width: 720px;
     margin: 16px auto 0 auto;
+    text-align: justify;
+    line-height: 1.7;
 }
 
 main {
@@ -33,20 +35,42 @@ main {
 
 .chart-row {
     margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#international_arrivals_world_map {
+    margin-bottom: 40px;
 }
 
 .chart-column {
     box-sizing: border-box;
     padding: 12px;
+    flex: 1;
+    min-width: 0;
 }
 
 .chart-column h3 {
     margin-top: 0;
 }
 
-#conclusion,
+.chart-insight {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #555;
+    margin: 8px 0 12px 0;
+}
+
+#conclusion {
+    margin-top: 10px;
+}
+
 .metadata-section {
-    margin-top: 40px;
+    margin-top: 30px;
+    padding: 0 24px 30px 24px;
+    background: none;
+    font-size: 12px;
 }
 
 .metadata-section ul {
@@ -55,13 +79,12 @@ main {
 }
 
 .metadata-section li {
-    margin-bottom: 6px;
+    margin-bottom: 3px;
 }
 
 .metadata-section a {
     color: #8e6bbf;
     text-decoration: none;
-    font-weight: 600;
 }
 
 .metadata-section a:hover {
