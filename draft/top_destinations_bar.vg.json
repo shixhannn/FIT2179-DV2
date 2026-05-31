@@ -1,0 +1,111 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 720,
+  "height": 260,
+
+  "data": {
+    "url": "data/domestic_visitors_top_destination.csv"
+  },
+
+  "params": [
+    {
+      "name": "StateSelection",
+      "value": "Johor",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Johor",
+          "Kedah",
+          "Kelantan",
+          "Melaka",
+          "Negeri Sembilan",
+          "Pahang",
+          "Perak",
+          "Perlis",
+          "Pulau Pinang",
+          "Sabah",
+          "Sarawak",
+          "Selangor",
+          "Terengganu",
+          "W.P. Kuala Lumpur",
+          "W.P. Labuan",
+          "W.P. Putrajaya"
+        ],
+        "name": "Select State: "
+      }
+    }
+  ],
+
+  "transform": [
+    {
+      "filter": "datum.state == StateSelection"
+    },
+    {
+      "window": [
+        {
+          "op": "row_number",
+          "as": "rank"
+        }
+      ]
+    },
+    {
+      "calculate": "6 - datum.rank",
+      "as": "rank_score"
+    },
+    {
+      "calculate": "'#' + datum.rank + '  ' + datum.destination",
+      "as": "destination_label"
+    }
+  ],
+
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 6,
+    "size": 32,
+    "color": "#5E7890"
+  }, 
+
+  "encoding": {
+    "y": {
+      "field": "destination_label",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "title": null,
+        "labelFont": "Source Sans 3",
+        "labelFontSize": 15,
+        "labelColor": "#24344D",
+        "labelLimit": 380,
+        "labelPadding": 8
+      }
+    },
+    "x": {
+      "field": "rank_score",
+      "type": "quantitative",
+      "axis": null,
+      "scale": {
+        "domain": [0, 5]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "title": "State"
+      },
+      {
+        "field": "destination",
+        "title": "Destination"
+      },
+      {
+        "field": "rank",
+        "title": "Rank"
+      }
+    ]
+  },
+
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

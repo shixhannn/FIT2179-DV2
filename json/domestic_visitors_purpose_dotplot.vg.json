@@ -1,0 +1,78 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 260,
+  "padding": { "left": 20, "right": 20, "top": 10, "bottom": 20 },
+  "data": { "url": "data/domestic_visitors_by_purpose.csv" },
+  "transform": [
+    { "pivot": "year", "value": "percentage_share", "groupby": ["purpose"] }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "rule", "strokeWidth": 2, "color": "#cfc2d6" },
+      "encoding": {
+        "y": {
+          "field": "purpose", "type": "nominal",
+          "sort": { "field": "2024", "order": "descending" },
+          "axis": { "title": null, "labelLimit": 200, "labelFont": "Source Sans 3", "labelFontSize": 12, "labelColor": "#33343A" }
+        },
+        "x": { "field": "2023", "type": "quantitative" },
+        "x2": { "field": "2024" }
+      }
+    },
+    {
+      "mark": { "type": "point", "filled": true, "size": 90, "color": "#CDB9D9" },
+      "encoding": {
+        "y": { "field": "purpose", "type": "nominal", "sort": { "field": "2024", "order": "descending" } },
+        "x": {
+          "field": "2023", "type": "quantitative",
+          "axis": { "title": "Share of Domestic Visitors (%)", "grid": true, "labelFont": "Source Sans 3", "titleFont": "Source Sans 3", "labelFontSize": 12, "titleFontSize": 12, "labelColor": "#33343A", "titleColor": "#33343A", "titleFontWeight": "bold" }
+        },
+        "tooltip": [ { "field": "purpose" }, { "field": "2023", "format": ".1f", "title": "2023 (%)" } ]
+      }
+    },
+    {
+      "mark": { "type": "point", "filled": true, "size": 90, "color": "#6B3FA0" },
+      "encoding": {
+        "y": { "field": "purpose", "type": "nominal", "sort": { "field": "2024", "order": "descending" } },
+        "x": { "field": "2024", "type": "quantitative" },
+        "tooltip": [ { "field": "purpose" }, { "field": "2024", "format": ".1f", "title": "2024 (%)" } ]
+      }
+    },
+    {
+      "transform": [ { "filter": "datum.purpose == 'Shopping'" } ],
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 10, "fontWeight": "bold", "color": "#6B3FA0", "align": "left", "dx": 10, "dy": -10},
+      "encoding": {
+        "y": { "field": "purpose", "type": "nominal", "sort": { "field": "2024", "order": "descending" } },
+        "x": { "field": "2024", "type": "quantitative" },
+        "text": { "value": "▲ biggest gain" }
+      }
+    }
+  ],
+  "config": {
+  "font": "Source Sans 3",
+
+  "axis": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
+  },
+
+  "legend": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
+  },
+
+  "header": {
+    "labelFontSize": 13,
+    "titleFontSize": 14
+  },
+
+  "text": {
+    "fontSize": 13
+  }
+}
+}

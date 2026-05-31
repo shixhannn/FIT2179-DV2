@@ -1,5 +1,7 @@
 var vg_income_map = "json/visitors_income_symbol_map.vg.json";
 
-vegaEmbed("#visitors_income_symbol_map", vg_income_map)
+vegaEmbed("#visitors_income_symbol_map", vg_income_map, {
+  actions: false
+})
   .then(function(result) {})
   .catch(console.error);

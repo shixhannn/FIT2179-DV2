@@ -1,154 +1,125 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
-  "title": {
-    "text": "International Visitor Origins",
-    "subtitle": "Top countries to Malaysia"
-  },
-
-  "width": 420,
-  "height": 260,
-
+  "width": "container",
+  "height": 360,
   "params": [
     {
-      "name": "YearSelector",
-      "value": 2024,
-      "bind": {
-        "input": "select",
-        "options": [2020, 2021, 2022, 2023, 2024],
-        "name": "Select Year: "
-      }
+      "name": "YearSelector", "value": 2024,
+      "bind": { "input": "select", "options": [2020, 2021, 2022, 2023, 2024], "name": "Select Year: " }
     }
   ],
-
-  "projection": {
-    "type": "equalEarth",
-    "center": [100, 15],
-    "scale": 320
-  },
-
+  "projection": { "type": "mercator", "center": [105, 10], "scale": 330 },
   "layer": [
     {
-      "data": {
-        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
-        "format": {
-          "type": "topojson",
-          "feature": "ne_110m_admin_0_countries"
-        }
-      },
-      "mark": {
-        "type": "geoshape",
-        "fill": "#eef1f5",
-        "stroke": "white",
-        "strokeWidth": 0.5
+      "data": { "sphere": true },
+      "mark": { "type": "geoshape", "fill": "#d6eaf8" }
+    },
+    {
+      "data": { "url": "data/ne_110m.json", "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" } },
+      "mark": { "type": "geoshape", "fill": "#EEF2F6", "stroke": "#FFFFFF", "strokeWidth": 0.6 }
+    },
+    {
+      "data": { "url": "data/ne_110m.json", "format": { "type": "topojson", "feature": "ne_110m_graticules_30" } },
+      "mark": { "type": "geoshape", "stroke": "#b8d4e8", "strokeWidth": 0.4, "filled": false }
+    },
+    {
+      "data": { "values": [{ "lon": 101.9758, "lat": 4.1184 }] },
+      "mark": { "type": "point", "shape": "triangle-up", "size": 120, "fill": "#c0392b", "stroke": "white", "strokeWidth": 1 },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" }
       }
     },
     {
-      "data": {
-        "url": "data/international_arrivals_country.csv"
-      },
-    "transform": [
-    {
-        "filter": "datum.year == YearSelector"
-    },
-    {
-        "window": [
-        {
-            "op": "rank",
-            "as": "rank"
-        }
-        ],
-        "sort": [
-        {
-            "field": "arrivals",
-            "order": "descending"
-        }
-        ]
-    },
-    {
-        "filter": "datum.rank <= 10"
-    }
-    ],
-      "mark": {
-        "type": "circle",
-        "opacity": 0.65,
-        "stroke": "white",
-        "strokeWidth": 1
-      },
+      "data": { "values": [{ "lon": 101.9758, "lat": 4.1184, "label": "Malaysia" }] },
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 10, "fontWeight": "bold", "color": "#c0392b", "dy": -10 },
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    },
+    {
+      "data": { "url": "data/international_arrivals_country.csv" },
+      "transform": [
+        { "filter": "datum.year == YearSelector" },
+        { "window": [{ "op": "rank", "as": "rank" }], "sort": [{ "field": "arrivals", "order": "descending" }] },
+        { "filter": "datum.rank <= 10" }
+      ],
+      "mark": { "type": "circle", "opacity": 0.70, "stroke": "#FFFFFF", "strokeWidth": 1.2 },
+      "encoding": {
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" },
         "size": {
-        "field": "arrivals",
-        "type": "quantitative",
-        "title": "Arrivals",
-        "scale": {
-            "range": [20, 850]
-        },
-        "legend": {
-            "orient": "bottom",
-            "direction": "horizontal",
-            "titleOrient": "left",
-            "format": "~s"
-        }
+          "field": "arrivals", "type": "quantitative", "title": "Arrivals",
+          "scale": { "type": "sqrt", "range": [30, 900] },
+          "legend": {
+            "orient": "bottom", "direction": "horizontal", "titleOrient": "left",
+            "values": [1000000, 3000000, 6000000, 10000000, 15000000],
+            "format": "~s", "symbolStrokeColor": "#FFFFFF", "symbolStrokeWidth": 1,
+            "labelFont": "Source Sans 3", "titleFont": "Source Sans 3", "labelFontSize": 11, "titleFontSize": 11
+          }
         },
         "color": {
-          "value": "#8e6bbf"
+          "condition": { "test": "datum.country == 'Singapore'", "value": "#4a235a" },
+          "value": "#8e6bb5"
         },
         "tooltip": [
-          {
-            "field": "country",
-            "type": "nominal",
-            "title": "Country"
-          },
-          {
-            "field": "year",
-            "type": "ordinal",
-            "title": "Year"
-          },
-          {
-            "field": "arrivals",
-            "type": "quantitative",
-            "title": "Arrivals",
-            "format": ","
-          }
+          { "field": "country", "type": "nominal", "title": "Country" },
+          { "field": "rank", "type": "ordinal", "title": "Rank" },
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "arrivals", "type": "quantitative", "title": "Arrivals", "format": "," }
         ]
+      }
+    },
+    {
+      "data": { "url": "data/international_arrivals_country.csv" },
+      "transform": [
+        { "filter": "datum.year == YearSelector" },
+        { "window": [{ "op": "rank", "as": "rank" }], "sort": [{ "field": "arrivals", "order": "descending" }] },
+        { "filter": "datum.rank <= 5" }
+      ],
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 11, "fontWeight": "600", "dx": 10, "dy": -8, "color": "#1a1a2e" },
+      "encoding": {
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" },
+        "text": { "field": "country" }
+      }
+    },
+    {
+      "data": { "values": [{ "lon": 103.8, "lat": 1.35 }] },
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 10, "fontStyle": "italic", "color": "#4a235a", "dy": 24, "fontWeight": "600" },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "text": { "value": "Singapore dominates" }
       }
     }
   ],
+  "config": {
+  "font": "Source Sans 3",
 
-    "config": {
-        "font": "Open Sans",
-        "title": {
-            "font": "Open Sans",
-            "fontSize": 13,
-            "fontWeight": "bold",
-            "anchor": "start",
-            "color": "#1a1a2e"
-        },
+  "axis": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
+  },
 
-        "axis": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 11,
-            "titleFontSize": 11
-        },
+  "legend": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
+  },
 
-        "legend": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 10,
-            "titleFontSize": 11
-        },
+  "header": {
+    "labelFontSize": 13,
+    "titleFontSize": 14
+  },
 
-        "view": {
-            "stroke": null
-        }
-    }
+  "text": {
+    "fontSize": 13
+  }
+}
 }

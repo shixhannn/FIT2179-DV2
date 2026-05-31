@@ -1,136 +1,78 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
-  "title": {
-    "text": "International Arrivals by State",
-    "subtitle": "Circle size represents arrivals"
-  },
-
-  "width": 680,
+  "width": "container",
   "height": 300,
-
   "params": [
     {
-      "name": "YearSelector",
-      "value": 2024,
-      "bind": {
-        "input": "select",
-        "options": [2020, 2021, 2022, 2023, 2024],
-        "name": "Select Year: "
-      }
+      "name": "YearSelector", "value": 2024,
+      "bind": { "input": "select", "options": [2020, 2021, 2022, 2023, 2024], "name": "Select Year: " }
     }
   ],
-
-  "projection": {
-    "type": "mercator",
-    "center": [108, 4],
-    "scale": 1250
-  },
-
+  "projection": { "type": "mercator", "center": [109.5, 4.2], "scale": 1000 },
   "layer": [
     {
-      "data": {
-        "url": "data/malaysia-states.topojson",
-        "format": {
-          "type": "topojson",
-          "feature": "states"
-        }
-      },
-
-      "mark": {
-        "type": "geoshape",
-        "fill": "#eef1f5",
-        "stroke": "white",
-        "strokeWidth": 1
+      "data": { "url": "data/malaysia-states.topojson", "format": { "type": "topojson", "feature": "states" } },
+      "mark": { "type": "geoshape", "fill": "#eef1f5", "stroke": "white", "strokeWidth": 1 }
+    },
+    {
+      "data": { "url": "data/international_arrivals_by_state.csv" },
+      "transform": [ { "filter": "datum.year == YearSelector" } ],
+      "mark": { "type": "circle", "opacity": 0.65, "stroke": "white", "strokeWidth": 1 },
+      "encoding": {
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" },
+        "size": {
+          "field": "arrivals", "type": "quantitative", "title": "Arrivals",
+          "scale": { "range": [30, 650] },
+          "legend": {
+            "orient": "right", "title": "Arrivals",
+            "values": [0, 5000000, 10000000, 15000000],
+            "format": "~s",
+            "labelFont": "Source Sans 3", "titleFont": "Source Sans 3", "labelFontSize": 11, "titleFontSize": 11
+          }
+        },
+        "color": { "value": "#8e6bbf" },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "arrivals", "type": "quantitative", "title": "Arrivals", "format": "," }
+        ]
       }
     },
-
     {
-      "data": {
-        "url": "data/international_arrivals_by_state.csv"
-      },
-
-      "transform": [
-        {
-          "filter": "datum.year == YearSelector"
-        }
-      ],
-
-      "mark": {
-        "type": "circle",
-        "opacity": 0.6,
-        "stroke": "white",
-        "strokeWidth": 1
-      },
-
+      "data": { "values": [{ "text": "Johor is the main entry point from Singapore", "longitude": 102.5, "latitude": 6.5 }] },
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 10, "fontWeight": "bold", "color": "#4a235a", "align": "left" },
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "size": {
-          "field": "arrivals",
-          "type": "quantitative",
-          "title": "Arrivals",
-          "scale": {
-            "range": [30, 650]
-          }
-        },
-        "color": {
-          "value": "#8e6bbf"
-        },
-        "tooltip": [
-          {
-            "field": "state",
-            "type": "nominal",
-            "title": "State"
-          },
-          {
-            "field": "year",
-            "type": "ordinal",
-            "title": "Year"
-          },
-          {
-            "field": "arrivals",
-            "type": "quantitative",
-            "title": "Arrivals",
-            "format": ","
-          }
-        ]
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" },
+        "text": { "field": "text" }
       }
     }
   ],
+  "config": {
+  "font": "Source Sans 3",
 
-    "config": {
-        "font": "Open Sans",
-        "title": {
-            "font": "Open Sans",
-            "fontSize": 13,
-            "fontWeight": "bold",
-            "anchor": "start",
-            "color": "#1a1a2e"
-        },
+  "axis": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
+  },
 
-        "axis": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 11,
-            "titleFontSize": 11
-        },
+  "legend": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
+  },
 
-        "legend": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 10,
-            "titleFontSize": 11
-        },
+  "header": {
+    "labelFontSize": 13,
+    "titleFontSize": 14
+  },
 
-        "view": {
-            "stroke": null
-        }
-    }
+  "text": {
+    "fontSize": 13
+  }
+}
 }

@@ -1,134 +1,78 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
-  "title": {
-    "text": "Top Source Countries",
-    "subtitle": "International Arrivals Recovery (2020–2024)"
-  },
-
-  "width": 300,
+  "width": "container",
   "height": 260,
-
-  "data": {
-    "url": "data/top_countries.csv"
-  },
-
+  "data": { "url": "data/top_countries.csv" },
   "params": [
     {
-      "name": "YearSelector",
-      "value": 2024,
-      "bind": {
-        "input": "select",
-        "options": [2020, 2021, 2022, 2023, 2024],
-        "name": "Select Year: "
+      "name": "YearSelector", "value": 2024,
+      "bind": { "input": "select", "options": [2020, 2021, 2022, 2023, 2024], "name": "Select Year: " }
+    }
+  ],
+  "transform": [
+    { "filter": "datum.year == YearSelector" },
+    { "calculate": "toNumber(datum.arrivals)", "as": "arrivals_num" },
+    {
+      "calculate": "datum.country == 'SGP' ? 'Singapore' : datum.country == 'IDN' ? 'Indonesia' : datum.country == 'CHN' ? 'China' : datum.country == 'THA' ? 'Thailand' : datum.country == 'BRN' ? 'Brunei' : datum.country == 'IND' ? 'India' : datum.country == 'PHL' ? 'Philippines' : datum.country == 'KOR' ? 'South Korea' : datum.country == 'TWN' ? 'Taiwan' : datum.country == 'AUS' ? 'Australia' : datum.country == 'JPN' ? 'Japan' : datum.country == 'BGD' ? 'Bangladesh' : datum.country == 'VNM' ? 'Vietnam' : datum.country",
+      "as": "country_name"
+    },
+    { "window": [{ "op": "rank", "as": "rank" }], "sort": [{ "field": "arrivals_num", "order": "descending" }] },
+    { "filter": "datum.rank <= 10" }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "bar", "cornerRadiusEnd": 3 },
+      "encoding": {
+        "y": { "field": "country_name", "type": "nominal", "sort": "-x", "title": null, "axis": { "labelFont": "Source Sans 3", "labelFontSize": 12 } },
+        "x": {
+          "field": "arrivals_num", "type": "quantitative", "title": "International Arrivals",
+          "axis": { "format": "~s", "labelFont": "Source Sans 3", "titleFont": "Source Sans 3", "labelFontSize": 11, "titleFontSize": 12 }
+        },
+        "color": {
+          "condition": { "test": "datum.country_name == 'Singapore'", "value": "#4a235a" },
+          "value": "#8e6bbf"
+        },
+        "tooltip": [
+          { "field": "country_name", "type": "nominal", "title": "Country" },
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "arrivals_num", "type": "quantitative", "title": "Arrivals", "format": "," }
+        ]
+      }
+    },
+    {
+      "transform": [ { "filter": "datum.country_name == 'Singapore'" } ],
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 11, "fontWeight": "bold", "color": "white", "align": "right", "dx": -6 },
+      "encoding": {
+        "y": { "field": "country_name", "type": "nominal", "sort": "-x" },
+        "x": { "field": "arrivals_num", "type": "quantitative" },
+        "text": { "value": "4× more than Indonesia →" }
       }
     }
   ],
+  "config": {
+  "font": "Source Sans 3",
 
-  "transform": [
-    {
-        "filter": "datum.year == YearSelector"
-    },
-    {
-        "calculate": "toNumber(datum.arrivals)",
-        "as": "arrivals_num"
-    },
-    {
-        "calculate": "datum.country == 'SGP' ? 'Singapore' : datum.country == 'IDN' ? 'Indonesia' : datum.country == 'CHN' ? 'China' : datum.country == 'THA' ? 'Thailand' : datum.country == 'BRN' ? 'Brunei' : datum.country == 'IND' ? 'India' : datum.country == 'PHL' ? 'Philippines' : datum.country == 'KOR' ? 'South Korea' : datum.country == 'TWN' ? 'Taiwan' : datum.country == 'AUS' ? 'Australia' : datum.country == 'JPN' ? 'Japan' : datum.country == 'BGD' ? 'Bangladesh' : datum.country == 'PAK' ? 'Pakistan' : datum.country == 'VNM' ? 'Vietnam' : datum.country == 'GBR' ? 'United Kingdom' : datum.country == 'USA' ? 'United States' : datum.country",
-        "as": "country_name"
-    },
-    {
-        "window": [
-        {
-            "op": "rank",
-            "as": "rank"
-        }
-        ],
-        "sort": [
-        {
-            "field": "arrivals_num",
-            "order": "descending"
-        }
-        ]
-    },
-    {
-        "filter": "datum.rank <= 10"
-    }
-    ],
-
-  "mark": {
-    "type": "bar",
-    "cornerRadiusEnd": 3
+  "axis": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
   },
 
-  "encoding": {
-
-    "y": {
-      "field": "country_name",
-      "type": "nominal",
-      "sort": "-x",
-      "title": null
-    },
-
-    "x": {
-      "field": "arrivals_num",
-      "type": "quantitative",
-      "title": "International Arrivals",
-      "axis": {
-        "format": "~s"
-      }
-    },
-
-    "color": {
-        "value": "#8e6bbf"
-    },
-
-    "tooltip": [
-      {
-        "field": "country_name",
-        "type": "nominal",
-        "title": "Country"
-      },
-      {
-        "field": "year",
-        "type": "ordinal",
-        "title": "Year"
-      },
-      {
-        "field": "arrivals_num",
-        "type": "quantitative",
-        "title": "Arrivals",
-        "format": ","
-      }
-    ]
+  "legend": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
   },
 
-    "config": {
-        "font": "Open Sans",
-        "title": {
-            "font": "Open Sans",
-            "fontSize": 13,
-            "fontWeight": "bold",
-            "anchor": "start",
-            "color": "#1a1a2e"
-        },
+  "header": {
+    "labelFontSize": 13,
+    "titleFontSize": 14
+  },
 
-        "axis": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 11,
-            "titleFontSize": 11
-        },
-
-        "legend": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 10,
-            "titleFontSize": 11
-        },
-
-        "view": {
-            "stroke": null
-        }
-    }
+  "text": {
+    "fontSize": 13
+  }
+}
 }

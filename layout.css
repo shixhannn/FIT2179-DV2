@@ -1,92 +1,68 @@
-body {
-    margin: 0;
-    background-color: #F8F6F0;
-}
-
-#header,
-#conclusion {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 30px;
-    text-align: center;
-}
-
-#header p,
-#conclusion p {
-    max-width: 720px;
-    margin: 16px auto 0 auto;
-    text-align: justify;
-    line-height: 1.7;
-}
+html, body { overflow-x: hidden; }
+* { box-sizing: border-box; }
+body { margin: 0; }
 
 main {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 20px 24px;
+    padding: 20px 0;
 }
 
-.section-block {
-    background-color: white;
-    margin: 24px 0;
-    padding: 32px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-.chart-row {
-    margin-top: 25px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-#international_arrivals_world_map {
-    margin-bottom: 40px;
-}
-
-.chart-column {
-    box-sizing: border-box;
-    padding: 12px;
-    flex: 1;
-    min-width: 0;
-}
-
-.chart-column h3 {
+.section1-chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
     margin-top: 0;
 }
 
-.chart-insight {
-    font-size: 13px;
-    line-height: 1.5;
-    color: #555;
-    margin: 8px 0 12px 0;
+.section2-chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-top: 0;
 }
 
-#conclusion {
-    margin-top: 10px;
+.full-chart-row {
+    width: 100%;
+    margin-bottom: 32px;
 }
 
-.metadata-section {
-    margin-top: 30px;
-    padding: 0 24px 30px 24px;
-    background: none;
-    font-size: 12px;
+.two-column-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
 }
 
-.metadata-section ul {
-    margin-top: 5px;
-    padding-left: 20px;
+.section4-chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-top: 0;
 }
 
-.metadata-section li {
-    margin-bottom: 3px;
+.spending-column {
+    min-width: 0;
 }
 
-.metadata-section a {
-    color: #8e6bbf;
-    text-decoration: none;
+.chart-column {
+    min-width: 0;
+    overflow: visible;
 }
 
-.metadata-section a:hover {
-    text-decoration: underline;
+#domestic_visitors_heatmap,
+#domestic_vs_international_line_chart,
+#domestic_visitors_choropleth_map,
+#visitors_income_symbol_map,
+#international_arrivals_world_map,
+#top_countries_bar_chart,
+#international_arrivals_symbol_map,
+#domestic_visitors_purpose_dotplot,
+#domestic_spending_2023,
+#domestic_spending_2024 {
+    width: 100%;
+    display: block;
 }

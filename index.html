@@ -4,185 +4,150 @@
     <title>Malaysia Tourism Recovery</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&family=Playfair+Display:wght@400..900&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
     <link rel="stylesheet" href="layout.css">
 
     <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-
 </head>
 
 <body>
     <header id="header">
-        <h1>Malaysia Tourism Recovery</h1>
-        <p>
-            Malaysia’s tourism industry experienced major disruption during the
-            <span class="covid-text">COVID-19 pandemic</span>. This dashboard explores how domestic travel and international arrivals recovered over time, and where visitor activity was concentrated across Malaysia.
+        <h1>Malaysia on the Move</h1>
+        <p class="header-intro">
+            From empty airports to bustling destinations, Malaysia's tourism recovery was shaped by<br>
+            changing travel habits, spending patterns and the return of international visitors.<br>
+            Explore how tourism rebounded across the country after the <span class="covid-text">COVID-19 pandemic</span>.
         </p>
     </header>
 
     <main>
-        
         <section class="section-block">
-            <div class="pure-g">
+            <h2>The Recovery Began at Different Speeds</h2>
+            <p class="section-caption">
+                Domestic travel rebounded strongly from 2022 onwards, while international arrivals took longer<br>
+                to recover after border restrictions eased. By 2024, domestic visitors reached<br>
+                a record 211.6 million, far outpacing the international rebound.
+            </p>
 
-                <div class="pure-u-1">
-                    <h2>Introduction</h2>
-                    <p>
-                        Malaysia’s tourism recovery can be seen through both domestic travel activity and the rebound of international arrivals. The charts below compare seasonal domestic patterns with the wider recovery trend from 2020 onwards.
-                    </p>
-                </div>
-            </div>
-
-            <div class="pure-g chart-row">
-
-                <div class="pure-u-1 pure-u-md-1-2 chart-column">
-                    <p class="chart-insight">
-                        Domestic travel increased strongly after 2021, with higher visitor numbers across nearly all quarters by 2024 and 2025.
-                    </p>
+            <div class="chart-row section1-chart-row">
+                <div class="chart-column">
+                    <h3 class="chart-title">Domestic Visitors by Quarter (2021–2025)</h3>
                     <div id="domestic_visitors_heatmap"></div>
                 </div>
-                
-                <div class="pure-u-1 pure-u-md-1-2 chart-column">
-                    <p class="chart-insight">
-                        Domestic visitors recovered faster and reached much higher volumes than international arrivals.
-                    </p>
+                <div class="chart-column">
+                    <h3 class="chart-title">Domestic and International Tourism Recovery (2020–2024)</h3>
                     <div id="domestic_vs_international_line_chart"></div>
                 </div>
-
             </div>
         </section>
 
         <section class="section-block">
-            <div class="pure-g">
+            <h2>Not Every State Shared the Recovery</h2>
+            <p class="section-caption">
+                Tourism activity became concentrated in a handful of states. Selangor, Perak and Pahanh<br> 
+                emerged as dominant hubs, while higher household income did not consistently predict<br>
+                higher visitor volumes, suggesting that accessibility and attractions matter more than wealth.
+            </p>
 
-                <div class="pure-u-1">
-                    <h2>Where Malaysians Travelled</h2>
-                    <p>
-                        Domestic tourism did not recover evenly across all states. These maps show where local visitors travelled most, and how visitor patterns compare with household income levels.
-                    </p>
-
-                <div class="pure-g chart-row">
-
-                    <div class="pure-u-1 pure-u-md-1-2 chart-column">
-                        <p class="chart-insight">
-                            Domestic visitors were concentrated in major states such as Selangor, Perak and Pahang.
-                        </p>
-                        <div id="domestic_visitors_choropleth_map"></div>
-                    </div>
-
-                    <div class="pure-u-1 pure-u-md-1-2 chart-column">
-                        <p class="chart-insight">
-                            Higher-income states do not always receive the highest domestic visitor volumes, showing that tourism demand is shaped by more than income alone.
-                        </p>
-                        <div id="visitors_income_symbol_map"></div>
-                    </div>
-
+            <div class="chart-row section2-chart-row">
+                <div class="chart-column">
+                    <h3 class="chart-title">Domestic Visitors by State in Malaysia</h3>
+                    <div id="domestic_visitors_choropleth_map"></div>
                 </div>
-
-            </div>
-        </section>
-
-        <!--
-        <section class="section-block">
-            <div class="pure-g">
-                <div class="pure-u-1">
-                    <h2>Tourism Hotspots</h2>
-                    <p>Discover popular destinations and districts within each state.</p>
+                <div class="chart-column">
+                    <h3 class="chart-title">Domestic Visitors and Household Income by State</h3>
+                    <div id="visitors_income_symbol_map"></div>
                 </div>
             </div>
         </section>
 
         <section class="section-block">
-            <div class="pure-g">
-                <div class="pure-u-1">
-                    <h2>Tourism Spending and Behaviour</h2>
-                    <p>Explore how visitors spend and why they travel.</p>
-                </div>
+            <h2>Visitors Returned From Nearby Markets First</h2>
+            <p class="section-caption">
+                International tourism recovery was led by neighbouring countries. Singapore alone contributed nearly<br>
+                half of all international arrivals in 2024, more than four times any other source market.<br>
+                International visitors also concentrated in a few key entry states, highlighting Malaysia's <br>
+                dependence on regional connectivity.
+            </p>
+
+            <div class="full-chart-row">
+                <h3 class="chart-title">International Visitor Origins</h3>
+                <div id="international_arrivals_world_map"></div>
             </div>
-        </section>
-        -->
 
-        <section class="section-block">
-            <div class="pure-g">
-
-                <div class="pure-u-1">
-                    <h2>International Tourism</h2>
-                        <p>
-                            International arrivals recovered more unevenly after the pandemic. This section shows where Malaysia’s visitors came from, which countries contributed the most arrivals, and where international arrivals concentrated within Malaysia.
-                        </p>
-                </div>
-
-                <div class="pure-u-1 pure-u-md-1-2 chart-container">
-                    <p class="chart-insight">
-                        Most top international source markets are located within Asia-Pacific, highlighting Malaysia’s dependence on nearby regional travel markets.
-                    </p>
-                    <div id="international_arrivals_world_map"></div>
-                </div>
-
-                <div class="pure-u-1 pure-u-md-1-2 chart-container">
-                    <p class="chart-insight">
-                        Singapore remained the dominant source market, while China, Indonesia and Thailand also became key contributors during recovery.
-                    </p>
+            <div class="two-column-row">
+                <div class="chart-column">
+                    <h3 class="chart-title">Top Source Countries (2020–2024)</h3>
                     <div id="top_countries_bar_chart"></div>
                 </div>
-
-                <div class="pure-u-1 chart-container">
-                    <p class="chart-insight">
-                        International arrivals were not evenly distributed across Malaysia, with stronger concentration in selected entry states.
-                    </p>
+                <div class="chart-column">
+                    <h3 class="chart-title">International Arrivals by State in Malaysia</h3>
                     <div id="international_arrivals_symbol_map"></div>
                 </div>
-
             </div>
         </section>
-        
+
+    <section class="section-block">
+        <h2>Malaysians Travel and Spend Differently Now</h2>
+        <p class="section-caption">
+            Recovery was not only about volume. It reshaped travel behaviour.<br>
+            Visiting relatives and friends remained the top purpose of travel, <br>
+            while shopping gained share. Spending rose across every major category <br>
+            from 2023 to 2024, with shopping remaining the single largest expenditure item.
+        </p>
+
+        <div class="full-chart-row">
+            <h3 class="chart-title">Purpose of Domestic Travel — Share Change (2023 vs 2024)</h3>
+            <div class="dotplot-legend">
+                <span><span class="legend-dot dot-2023"></span>2023</span>
+                <span><span class="legend-dot dot-2024"></span>2024</span>
+            </div>
+            <div id="domestic_visitors_purpose_dotplot"></div>
+        </div>
+
+        <div class="full-chart-row spending-section">
+            <h3 class="chart-title">Tourism Spending by Category (RM Billion)</h3>
+
+            <div class="spending-chart-wrapper">
+                <div class="spending-chart-box">
+                    <p class="spending-year-label">2023</p>
+                    <div id="domestic_spending_2023"></div>
+                </div>
+
+                <div class="spending-chart-box">
+                    <p class="spending-year-label">2024</p>
+                    <div id="domestic_spending_2024"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     </main>
 
     <footer id="conclusion">
         <h2>Conclusion</h2>
-        <p>Malaysia’s tourism recovery shows two connected patterns: domestic travel recovered strongly across states and quarters, while international arrivals rebounded unevenly, led by nearby source markets such as Singapore, Indonesia, China and Thailand.</p>
+        <p class="conclusion-text">
+            Malaysia's tourism sector has largely recovered, driven by strong domestic travel and
+            regional international markets. However, tourism activity remains concentrated in selected
+            states and source countries, suggesting that future growth will depend on broadening
+            both visitor distribution and market diversity.
+        </p>
     </footer>
 
     <section class="metadata-section">
-
         <p>Author: Liow Shi Han</p>
-        <p>Last Modified: 20 May 2026</p>
-
+        <p>Last Modified: 31 May 2026</p>
         <h3>Data Sources</h3>
-
         <ul>
-            <li>
-                <a href="https://data.gov.my/data-catalogue/arrivals_soe" target="_blank">
-                    International Arrivals by Country
-                </a>
-            </li>
-
-            <li>
-                <a href="https://data.gov.my/data-catalogue/hh_income_state" target="_blank">
-                    Household Income by State
-                </a>
-            </li>
-
-            <li>
-                <a href="https://open.dosm.gov.my/publications/tourism_domestic_2025-q4" target="_blank">
-                    Domestic Tourism Survey Q4 2025
-                </a>
-            </li>
-
-            <li>
-                <a href="https://open.dosm.gov.my/publications/tourism_domestic_annual_2024" target="_blank">
-                    Domestic Tourism Survey Annual Report 2024
-                </a>
-            </li>
+            <li><a href="https://data.gov.my/data-catalogue/arrivals_soe">International Arrivals by Country</a></li>
+            <li><a href="https://data.gov.my/data-catalogue/hh_income_state">Household Income by State</a></li>
+            <li><a href="https://open.dosm.gov.my/publications/tourism_domestic_2025-q4">Domestic Tourism Survey Q4 2025</a></li>
+            <li><a href="https://open.dosm.gov.my/publications/tourism_domestic_annual_2024">Domestic Tourism Survey Annual Report 2024</a></li>
+            <li><a href="https://raw.githubusercontent.com/jnewbery/CartogramMalaysia/master/public/data/malaysia-states.topojson">Malaysia TopoJSON</a></li>
         </ul>
 
     </section>
@@ -194,6 +159,8 @@
     <script src="js/top_countries_vis.js"></script>
     <script src="js/international_arrivals_state_vis.js"></script>
     <script src="js/international_arrivals_vis.js"></script>
-
+    <script src="js/domestic_visitors_purpose_vis.js"></script>
+    <script src="js/domestic_spending_2023_vis.js"></script>
+    <script src="js/domestic_spending_2024_vis.js"></script>
 </body>
 </html>

@@ -1,128 +1,88 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
-  "title": "Domestic Visitors by State in Malaysia",
-
-  "width": 580,
-  "height": 320,
-  "padding": 5,
-
+  "width": "container",
+  "height": 300,
+  "padding": { "top": 5, "left": 10, "right": 5, "bottom": 5 },
   "params": [
     {
-      "name": "Year_selection",
-      "value": 2024,
-      "bind": {
-        "input": "select",
-        "options": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
-        "name": "Select Year: "
-      }
+      "name": "Year_selection", "value": 2024,
+      "bind": { "input": "select", "options": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], "name": "Select Year: " }
     }
   ],
-
-  "projection": {
-    "type": "equirectangular",
-    "center": [110, 3.8],
-    "scale": 1650
-  },
-
-  "data": {
-    "url": "data/domestic_visitors_by_state.csv"
-  },
-
-  "transform": [
+  "projection": { "type": "mercator", "center": [108.2, 4.2], "scale": 1500 },
+  "layer": [
     {
-      "filter": "toNumber(datum.year) == Year_selection"
-    },
-    {
-      "lookup": "state",
-      "from": {
-        "data": {
-          "url": "data/malaysia-states.topojson",
-          "format": {
-            "type": "topojson",
-            "feature": "states"
+      "data": { "url": "data/domestic_visitors_by_state.csv" },
+      "transform": [
+        { "filter": "toNumber(datum.year) == Year_selection" },
+        {
+          "lookup": "state",
+          "from": { "data": { "url": "data/malaysia-states.topojson", "format": { "type": "topojson", "feature": "states" } }, "key": "properties.Name" },
+          "as": "geo"
+        },
+        { "filter": "isValid(datum.geo)" }
+      ],
+      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 1 },
+      "encoding": {
+        "shape": { "field": "geo", "type": "geojson" },
+        "color": {
+          "field": "visitors", "type": "quantitative", "title": "Domestic Visitors",
+          "scale": { "range": ["#E8F5F2", "#B7E0D7", "#7FC8B8", "#3FA796", "#2F6F73"] },
+          "legend": {
+            "orient": "bottom", "direction": "horizontal", "gradientLength": 160,
+            "format": ".2s", "titleFont": "Source Sans 3", "labelFont": "Source Sans 3",
+            "titleFontSize": 11, "labelFontSize": 11
           }
         },
-        "key": "properties.Name"
-      },
-      "as": "geo"
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "year", "type": "ordinal", "title": "Year" },
+          { "field": "visitors", "type": "quantitative", "title": "Visitors", "format": "," }
+        ]
+      }
     },
     {
-      "filter": "isValid(datum.geo)"
+      "data": { "values": [{ "text": "Selangor has the highest visitor volume", "longitude": 103.0, "latitude": 6.4 }] },
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 11, "fontWeight": "bold", "color": "#19324A", "align": "left" },
+      "encoding": {
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" },
+        "text": { "field": "text" }
+      }
+    },
+    {
+      "data": { "values": [{ "longitude": 101.65, "latitude": 3.1 }] },
+      "mark": { "type": "point", "shape": "arrow", "size": 80, "color": "#19324A", "angle": 180 },
+      "encoding": {
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" }
+      }
     }
   ],
+  "config": {
+  "font": "Source Sans 3",
 
-  "mark": {
-    "type": "geoshape",
-    "stroke": "white",
-    "strokeWidth": 1
+  "axis": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
   },
 
-  "encoding": {
-    "shape": {
-      "field": "geo",
-      "type": "geojson"
-    },
-    "color": {
-      "field": "visitors",
-      "type": "quantitative",
-      "title": "Visitors",
-      "scale": {
-        "scheme": "purpleblue",
-        "domain": [0, 35000]
-    },
-    "legend": {
-      "orient": "bottom",
-      "direction": "horizontal",
-      "gradientLength": 180,
-      "format": ".2s"
-    }
-    },
-    "tooltip": [
-      {
-        "field": "state",
-        "type": "nominal",
-        "title": "State"
-      },
-      {
-        "field": "year",
-        "type": "ordinal",
-        "title": "Year"
-      },
-      {
-        "field": "visitors",
-        "type": "quantitative",
-        "title": "Visitors",
-        "format": ","
-      }
-    ]
-    },
-    "config": {
-        "font": "Open Sans",
-        "title": {
-            "font": "Open Sans",
-            "fontSize": 13,
-            "fontWeight": "bold",
-            "anchor": "start",
-            "color": "#1a1a2e"
-        },
+  "legend": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
+  },
 
-        "axis": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 11,
-            "titleFontSize": 11
-        },
+  "header": {
+    "labelFontSize": 13,
+    "titleFontSize": 14
+  },
 
-        "legend": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 10,
-            "titleFontSize": 11
-        },
-
-        "view": {
-            "stroke": null
-        }
-    }
+  "text": {
+    "fontSize": 13
+  }
+}
 }

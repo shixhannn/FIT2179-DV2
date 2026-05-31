@@ -1,99 +1,99 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
-  "title": {
-    "text": "Domestic and International Tourism Trend (2020–2024)",
-    "fontSize": 15,
-    "fontWeight": "bold",
-    "color": "#1a1a2e",
-    "anchor": "start"
-  },
-
-  "width": 390,
-  "height": 240,
-
-  "data": {
-    "url": "data/domestic_vs_international_annual.csv"
-  },
-
+  "width": "container",
+  "height": 280,
+  "data": { "url": "data/domestic_vs_international_annual.csv" },
   "transform": [
+    { "fold": ["domestic", "international"], "as": ["type", "visitors"] },
+    { "calculate": "datum.type == 'domestic' ? 'Domestic Visitors' : 'International Arrivals'", "as": "visitor_type" }
+  ],
+  "layer": [
     {
-      "fold": ["domestic", "international"],
-      "as": ["type", "visitors"]
+      "mark": { "type": "line", "point": { "filled": true, "size": 70 }, "strokeWidth": 3 },
+      "encoding": {
+        "x": {
+          "field": "year", "type": "ordinal", "title": "Year",
+          "axis": { "labelAngle": 0, "labelFont": "Source Sans 3", "titleFont": "Source Sans 3", "labelFontSize": 12, "titleFontSize": 12 }
+        },
+        "y": {
+          "field": "visitors", "type": "quantitative", "title": "Visitors (Million)",
+          "scale": { "domain": [0, 280] },
+          "axis": { "values": [0, 50, 100, 150, 200, 250], "labelFont": "Source Sans 3", "titleFont": "Source Sans 3", "labelFontSize": 11, "titleFontSize": 12, "grid": true }
+        },
+        "color": {
+          "field": "visitor_type", "type": "nominal",
+          "scale": { "domain": ["Domestic Visitors", "International Arrivals"], "range": ["#f748e3", "#7B2CBF"] },
+          "legend": { "orient": "bottom", "direction": "horizontal", "title": null, "labelFont": "Source Sans 3", "labelFontSize": 12, "symbolSize": 120 }
+        },
+        "tooltip": [
+          { "field": "year", "title": "Year" },
+          { "field": "visitor_type", "title": "Type" },
+          { "field": "visitors", "title": "Visitors (Million)", "format": ".2f" }
+        ]
+      }
+    },
+    {
+      "data": { "values": [{ "year": "2020" }] },
+      "mark": { "type": "rule", "strokeDash": [5, 4], "strokeWidth": 1.5, "color": "#C76D3A" },
+      "encoding": { "x": { "field": "year", "type": "ordinal" } }
+    },
+    {
+      "data": { "values": [{ "year": "2020", "visitors": 200, "label": "COVID-19 hit" }] },
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 11, "fontWeight": 700, "color": "#C76D3A", "align": "left", "dx": 6, "dy": -6 },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "visitors", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    },
+    {
+      "data": { "values": [{ "year": "2022" }] },
+      "mark": { "type": "rule", "strokeDash": [5, 4], "strokeWidth": 1.5, "color": "#2F6F73" },
+      "encoding": { "x": { "field": "year", "type": "ordinal" } }
+    },
+    {
+      "data": { "values": [{ "year": "2022", "visitors": 235, "label": "Borders reopened" }] },
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 11, "fontWeight": 700, "color": "#2F6F73", "align": "left", "dx": 6, "dy": -6 },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "visitors", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    },
+    {
+      "data": { "values": [{ "year": "2024", "visitors": 268, "label": "Record: 211.6M domestic" }] },
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 11, "fontWeight": 700, "fontStyle": "italic", "color": "#19324A", "align": "right", "dx": -6, "dy": -10 },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "visitors", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
     }
   ],
+  "config": {
+  "font": "Source Sans 3",
 
-  "mark": {
-    "type": "line",
-    "point": true,
-    "strokeWidth": 3
+  "axis": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
   },
 
-  "encoding": {
-    "x": {
-      "field": "year",
-      "type": "ordinal",
-      "title": "Year",
-      "axis": { "labelAngle": 0 }
-    },
-
-    "y": {
-      "field": "visitors",
-      "type": "quantitative",
-      "title": "Number of Visitors (millions)"
-    },
-
-    "color": {
-      "field": "type",
-      "type": "nominal",
-      "title": null,
-      "scale": {
-        "domain": ["domestic", "international"],
-        "range": ["#2A9D8F", "#7B2CBF"]
-      },
-      "legend": {
-        "labelExpr": "datum.label === 'domestic' ? 'Domestic Visitors' : 'International Arrivals'"
-      }
-    },
-
-    "tooltip": [
-      { "field": "year", "type": "ordinal", "title": "Year" },
-      { "field": "type", "type": "nominal", "title": "Type" },
-      {
-        "field": "visitors",
-        "type": "quantitative",
-        "title": "Number of Visitors (millions)",
-        "format": ".2f"
-      }
-    ]
+  "legend": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
   },
 
-    "config": {
-        "font": "Open Sans",
-        "title": {
-            "font": "Open Sans",
-            "fontSize": 13,
-            "fontWeight": "bold",
-            "anchor": "start",
-            "color": "#1a1a2e"
-        },
+  "header": {
+    "labelFontSize": 13,
+    "titleFontSize": 14
+  },
 
-        "axis": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 11,
-            "titleFontSize": 11
-        },
-
-        "legend": {
-            "labelFont": "Open Sans",
-            "titleFont": "Open Sans",
-            "labelFontSize": 10,
-            "titleFontSize": 11
-        },
-
-        "view": {
-            "stroke": null
-        }
-    }
+  "text": {
+    "fontSize": 13
+  }
+}
 }

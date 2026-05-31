@@ -1,0 +1,58 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 240,
+  "data": { "url": "data/domestic_visitors_by_spending.csv" },
+  "transform": [ { "filter": "datum.year == 2024 || datum.year == '2024'" } ],
+  "layer": [
+    {
+      "mark": { "type": "bar", "cornerRadiusEnd": 3, "color": "#2D6A4F" },
+      "encoding": {
+        "y": {
+          "field": "category", "type": "nominal", "sort": "-x",
+          "axis": { "title": null, "labelFont": "Source Sans 3", "labelFontSize": 12, "labelColor": "#33343A" }
+        },
+        "x": {
+          "field": "spending", "type": "quantitative",
+          "axis": { "title": "Spending (RM Billion)", "grid": true, "labelFont": "Source Sans 3", "titleFont": "Source Sans 3", "labelFontSize": 11, "titleFontSize": 12, "titleFontWeight": "bold" }
+        },
+        "tooltip": [ { "field": "category", "title": "Category" }, { "field": "spending", "title": "2024 Spending (RM B)", "format": ".1f" } ]
+      }
+    },
+    {
+      "transform": [ { "filter": "datum.category == 'Shopping'" } ],
+      "mark": { "type": "text", "font": "Source Sans 3", "fontSize": 10, "fontWeight": "bold", "color": "white", "align": "right", "dx": -6 },
+      "encoding": {
+        "y": { "field": "category", "type": "nominal", "sort": "-x" },
+        "x": { "field": "spending", "type": "quantitative" },
+        "text": { "value": "↑ rose from 2023" }
+      }
+    }
+  ],
+  "config": {
+  "font": "Source Sans 3",
+
+  "axis": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
+  },
+
+  "legend": {
+    "labelFontSize": 13,
+    "titleFontSize": 14,
+    "labelFont": "Source Sans 3",
+    "titleFont": "Source Sans 3"
+  },
+
+  "header": {
+    "labelFontSize": 13,
+    "titleFontSize": 14
+  },
+
+  "text": {
+    "fontSize": 13
+  }
+}
+}
